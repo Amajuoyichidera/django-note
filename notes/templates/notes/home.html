@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    
+
+    
+    <div class="container">
+        <br>
+        <h1>Recent Notes</h1>
+        <div class="notes">
+            
+            {% for note in notes %}
+            <div class="note">
+                <h2 class="text-info">{{note.title}}</h2>
+                <p>{{note.description}}</p>
+                <div class="options">
+                    <a href="/update/{{note.id}}/" class="btn btn-success">Update</a>
+                    <a href="/delete/{{note.id}}/" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+                
+        </div>
+    </div>
+    <div class="add-modal" id="add-modal">
+        <div class="form">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h3>Add Note</h3>
+               {{form |crispy}}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger close-btn" onclick="closeModal('add-modal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock body %}
+   
